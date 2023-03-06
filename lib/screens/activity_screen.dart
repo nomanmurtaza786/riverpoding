@@ -7,24 +7,72 @@ class ActivityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final apiservicec =ref.watch(apiServicesProvider);
-   
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Activity Screen'),
-      ),
-      body: ref.watch(fetchActivitiesProvider).when(
-            data: (data) => RefreshIndicator(
-                onRefresh: () async {
-                  ref.invalidate(fetchActivitiesProvider);
-                },
-                child: ListView(children: [Text(data.activity ?? '')])),
-            error: (error, stack) => Center(child: Text(error.toString())),
-            loading: () => const Center(
-              child: CircularProgressIndicator(),
+        backgroundColor: Colors.grey,
+        appBar: AppBar(
+          title: const Text('Activity Screen'),
+        ),
+        body: Column(
+          children: [
+            ActivityWidget(
+              providerName: fetchActivitiesProvider,
             ),
+            ActivityWidget(
+              providerName: fetchActivities2Provider,
+            ),
+          ],
+        ));
+  }
+}
+
+class ActivityWidget extends ConsumerWidget {
+  const ActivityWidget({super.key, required this.providerName});
+  final AutoDisposeFutureProvider providerName;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      width: 200,
+      height: 200,
+      //border: Border.all(color: Colors.black),
+      decoration: myBoxDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ref.watch(providerName).when(
+                data: (data) => RefreshIndicator(
+                    onRefresh: () async {},
+                    child: Center(child: Text(data.activity ?? ''))),
+                error: (error, stack) => Center(child: Text(error.toString())),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+          const SizedBox(
+            height: 10,
           ),
+          ElevatedButton(
+            onPressed: () {
+              ref.invalidate(providerName);
+            },
+            child: const Text(
+              'Refresh',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
+        ],
+      ),
     );
   }
+}
+
+BoxDecoration myBoxDecoration() {
+  return BoxDecoration(
+    color: Colors.white,
+    border: Border.all(
+      color: Colors.red, //                   <--- border color
+      width: 5.0,
+    ),
+  );
 }

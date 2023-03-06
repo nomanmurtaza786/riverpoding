@@ -21,3 +21,14 @@ Future<ActivityModel> fetchActivities(FetchActivitiesRef ref) async {
 
   return activity;
 }
+
+@riverpod
+Future<ActivityModel> fetchActivities2(FetchActivities2Ref ref) async {
+  final activity = await ref.watch(apiServicesProvider).getActivity();
+//timer to refresh the data
+//   Timer(const Duration(seconds: 3), () {
+//     ref.invalidateSelf();
+//   });
+
+  return activity;
+}
