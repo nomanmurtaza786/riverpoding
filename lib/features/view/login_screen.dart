@@ -5,7 +5,7 @@ import 'package:superwizor/core/helper/function.dart';
 import 'package:superwizor/core/helper/validation.dart';
 import 'package:superwizor/core/theme/superwizor_radius.dart';
 import 'package:superwizor/core/theme/superwizor_spacing.dart';
-import 'package:superwizor/feature/widget/textfield_outlineborder_widget.dart';
+import 'package:superwizor/features/widget/textfield_outlineborder_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../widget/superwizor_title_widget.dart';
