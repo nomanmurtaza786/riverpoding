@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:superwizor/providers/providers.dart';
 
-class ActivityScreen extends ConsumerWidget {
+class ActivityScreen extends StatelessWidget {
   const ActivityScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey,
         appBar: AppBar(
@@ -31,6 +31,7 @@ class ActivityWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print('noman --->');
     return Container(
       width: 200,
       height: 200,
@@ -41,9 +42,7 @@ class ActivityWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ref.watch(providerName).when(
-                data: (data) => RefreshIndicator(
-                    onRefresh: () async {},
-                    child: Center(child: Text(data.activity ?? ''))),
+                data: (data) => Center(child: Text(data.activity ?? '')),
                 error: (error, stack) => Center(child: Text(error.toString())),
                 loading: () => const Center(
                   child: CircularProgressIndicator(),
