@@ -12,29 +12,43 @@ class PassengersScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Passengers'),
       ),
-      body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          final page = index ~/ 10;
-          final itemIndex = index % 10;
-          print('noman --->page $page');
-          //print('noman ---> item index $itemIndex');
-          final pageData = ref.watch(fetchPassengersProvider(page: page));
-          return pageData.when(
-            data: (data) {
-              final passenger = data.data![itemIndex];
-              return ListTile(
-                title: Text(passenger.name!),
-                subtitle: Text('${passenger.trips} trips'),
-              );
-            },
-            loading: () => const ListTile(
-              title: Text('Loading...'),
-            ),
-            error: (error, stack) => const ListTile(
-              title: Text('Error'),
-            ),
-          );
+      body: RefreshIndicator(
+        onRefresh: () async {
+          ref.refresh(fetchPassengersProvider(page: 0));
         },
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            final page = index ~/ 10;
+            final itemIndex = index % 10;
+            print('noman --->page $page');
+            //print('noman ---> item index $itemIndex');
+            //print('noman --->$index');
+            final pageData = ref.watch(fetchPassengersProvider(page: page));
+            return pageData.when(
+              data: (data) {
+                // if (data.isEmpty) {
+                //   return const ListTile(
+                //     title: Text('No more data'),
+                //   );
+                // }
+                if (itemIndex >= data.length) {
+                  return null;
+                }
+                final passenger = data[itemIndex];
+                return ListTile(
+                  title: Text(passenger.name!),
+                  subtitle: Text('${passenger.trips} trips'),
+                );
+              },
+              loading: () => const ListTile(
+                title: Text('Loading...'),
+              ),
+              error: (error, stack) => const ListTile(
+                title: Text('Error'),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

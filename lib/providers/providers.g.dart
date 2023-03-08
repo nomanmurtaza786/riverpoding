@@ -52,7 +52,7 @@ final fetchActivities2Provider =
 );
 
 typedef FetchActivities2Ref = AutoDisposeFutureProviderRef<ActivityModel>;
-String _$fetchPassengersHash() => r'0e17957f68d7af2ea935b11eddae5708e809dfd3';
+String _$fetchPassengersHash() => r'fb9e1c7e68b2338e1fa9182fb9ba2d6b97e86a12';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -75,14 +75,14 @@ class _SystemHash {
   }
 }
 
-typedef FetchPassengersRef = AutoDisposeFutureProviderRef<PassengersModel>;
+typedef FetchPassengersRef = AutoDisposeFutureProviderRef<List<Passenger>>;
 
 /// See also [fetchPassengers].
 @ProviderFor(fetchPassengers)
 const fetchPassengersProvider = FetchPassengersFamily();
 
 /// See also [fetchPassengers].
-class FetchPassengersFamily extends Family<AsyncValue<PassengersModel>> {
+class FetchPassengersFamily extends Family<AsyncValue<List<Passenger>>> {
   /// See also [fetchPassengers].
   const FetchPassengersFamily();
 
@@ -121,7 +121,7 @@ class FetchPassengersFamily extends Family<AsyncValue<PassengersModel>> {
 
 /// See also [fetchPassengers].
 class FetchPassengersProvider
-    extends AutoDisposeFutureProvider<PassengersModel> {
+    extends AutoDisposeFutureProvider<List<Passenger>> {
   /// See also [fetchPassengers].
   FetchPassengersProvider({
     this.page = 1,

@@ -35,15 +35,14 @@ Future<ActivityModel> fetchActivities2(FetchActivities2Ref ref) async {
 }
 
 @riverpod
-Future<PassengersModel> fetchPassengers(FetchPassengersRef ref,
+Future<List<Passenger>> fetchPassengers(FetchPassengersRef ref,
     {int page = 1}) async {
-  final passengers =
-      await ref.watch(apiServicesProvider).getPassengers(page: page);
-//timer to refresh the data
-//   Timer(const Duration(seconds: 3), () {
-//     ref.invalidateSelf();
-//   });
+  if (page > 10) {
+    return [];
+  }
+  final data = await ref.watch(apiServicesProvider).getPassengers(page: page);
+  final Totalpages = data.totalPages;
+  final passengers = data.data ?? [];
 
-  return passengers;
-  
+  return [...passengers];
 }
