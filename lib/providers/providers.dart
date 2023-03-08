@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:superwizor/models/activity_model.dart';
+import 'package:superwizor/models/passengers_model.dart';
 import 'package:superwizor/services/api_services.dart';
 
 part 'providers.g.dart';
@@ -31,4 +32,18 @@ Future<ActivityModel> fetchActivities2(FetchActivities2Ref ref) async {
 //   });
 
   return activity;
+}
+
+@riverpod
+Future<PassengersModel> fetchPassengers(FetchPassengersRef ref,
+    {int page = 1}) async {
+  final passengers =
+      await ref.watch(apiServicesProvider).getPassengers(page: page);
+//timer to refresh the data
+//   Timer(const Duration(seconds: 3), () {
+//     ref.invalidateSelf();
+//   });
+
+  return passengers;
+  
 }

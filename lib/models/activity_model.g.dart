@@ -10,9 +10,9 @@ ActivityModel _$ActivityModelFromJson(Map<String, dynamic> json) =>
     ActivityModel(
       activity: json['activity'] as String?,
       type: json['type'] as String?,
-      participants: (json['participants'] as num?)?.toDouble(),
-      price: (json['price'] as num?)?.toDouble(),
+      participants: json['participants'] as num?,
+      price: json['price'] as num?,
       link: json['link'] as String?,
       key: json['key'] as String?,
-      accessibility: (json['accessibility'] as num?)?.toDouble(),
+      accessibility: json['accessibility'] as num?,
     );

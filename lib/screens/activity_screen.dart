@@ -51,13 +51,12 @@ class ActivityWidget extends ConsumerWidget {
           const SizedBox(
             height: 10,
           ),
-          ElevatedButton(
+          OutlinedButton(
             onPressed: () {
               ref.invalidate(providerName);
             },
             child: const Text(
               'Refresh',
-              style: TextStyle(color: Colors.white),
             ),
           )
         ],
