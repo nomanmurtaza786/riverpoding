@@ -6,11 +6,11 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$apiServicesHash() => r'b97d2ee4306b557d0b0ad9f129233781f40c5d8c';
+String _$apiServicesHash() => r'92da79da3b9bba0238596c7b9877108b7b6c646a';
 
 /// See also [apiServices].
 @ProviderFor(apiServices)
-final apiServicesProvider = AutoDisposeProvider<ApiServices>.internal(
+final apiServicesProvider = Provider<ApiServices>.internal(
   apiServices,
   name: r'apiServicesProvider',
   debugGetCreateSourceHash:
@@ -19,7 +19,7 @@ final apiServicesProvider = AutoDisposeProvider<ApiServices>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef ApiServicesRef = AutoDisposeProviderRef<ApiServices>;
+typedef ApiServicesRef = ProviderRef<ApiServices>;
 String _$activityListHash() => r'b65de92f6a72b20cbc891518a497fc0a6db17961';
 
 /// See also [activityList].
@@ -139,7 +139,7 @@ class FetchActivitiesProvider
   }
 }
 
-String _$fetchActivities2Hash() => r'7471277fb90767b9992c28ac31151fc80bf17946';
+String _$fetchActivities2Hash() => r'7c00d96ab5c2a7b34fd5336bd0e48c6cc5826a37';
 
 /// See also [fetchActivities2].
 @ProviderFor(fetchActivities2)
@@ -155,7 +155,7 @@ final fetchActivities2Provider =
 );
 
 typedef FetchActivities2Ref = AutoDisposeFutureProviderRef<ActivityModel>;
-String _$fetchPassengersHash() => r'e70de5e8ddbd75c8a770e10762e0a18cd7ee798e';
+String _$fetchPassengersHash() => r'269263bbe8b48f5cd89eea2d6933a002b3f49bb1';
 typedef FetchPassengersRef = AutoDisposeFutureProviderRef<List<Passenger>>;
 
 /// See also [fetchPassengers].
@@ -169,7 +169,7 @@ class FetchPassengersFamily extends Family<AsyncValue<List<Passenger>>> {
 
   /// See also [fetchPassengers].
   FetchPassengersProvider call({
-    int page = 1,
+    int page = 0,
   }) {
     return FetchPassengersProvider(
       page: page,
@@ -205,7 +205,7 @@ class FetchPassengersProvider
     extends AutoDisposeFutureProvider<List<Passenger>> {
   /// See also [fetchPassengers].
   FetchPassengersProvider({
-    this.page = 1,
+    this.page = 0,
   }) : super.internal(
           (ref) => fetchPassengers(
             ref,

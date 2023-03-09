@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:superwizor/core/theme/theme.dart';
-import 'package:superwizor/screens/passengers_screen.dart';
+import 'package:superwizor/screens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowMaterialGrid: false,
       title: 'Superwizor',
       theme: SuperwizorTheme.lightTheme(context),
-      home: const PassengersScreen(),
+      home: const HomeScreen(),
     );
   }
 }
