@@ -14,15 +14,13 @@ class PassengersScreen extends ConsumerWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          ref.refresh(fetchPassengersProvider(page: 0));
+          return ref.refresh(fetchPassengersProvider().future);
         },
         child: ListView.builder(
           itemBuilder: (BuildContext context, int index) {
             final page = index ~/ 10;
             final itemIndex = index % 10;
-            print('noman --->page $page');
-            //print('noman ---> item index $itemIndex');
-            //print('noman --->$index');
+
             final pageData = ref.watch(fetchPassengersProvider(page: page));
             return pageData.when(
               data: (data) {

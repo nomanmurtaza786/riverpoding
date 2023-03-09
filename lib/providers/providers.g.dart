@@ -20,39 +20,21 @@ final apiServicesProvider = AutoDisposeProvider<ApiServices>.internal(
 );
 
 typedef ApiServicesRef = AutoDisposeProviderRef<ApiServices>;
-String _$fetchActivitiesHash() => r'433f97b772a837664fb919a0cab1b5e21cac38fa';
+String _$activityListHash() => r'b65de92f6a72b20cbc891518a497fc0a6db17961';
 
-/// See also [fetchActivities].
-@ProviderFor(fetchActivities)
-final fetchActivitiesProvider =
-    AutoDisposeFutureProvider<ActivityModel>.internal(
-  fetchActivities,
-  name: r'fetchActivitiesProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$fetchActivitiesHash,
+/// See also [activityList].
+@ProviderFor(activityList)
+final activityListProvider = AutoDisposeProvider<List<ActivityModel>>.internal(
+  activityList,
+  name: r'activityListProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$activityListHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef FetchActivitiesRef = AutoDisposeFutureProviderRef<ActivityModel>;
-String _$fetchActivities2Hash() => r'7471277fb90767b9992c28ac31151fc80bf17946';
-
-/// See also [fetchActivities2].
-@ProviderFor(fetchActivities2)
-final fetchActivities2Provider =
-    AutoDisposeFutureProvider<ActivityModel>.internal(
-  fetchActivities2,
-  name: r'fetchActivities2Provider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$fetchActivities2Hash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef FetchActivities2Ref = AutoDisposeFutureProviderRef<ActivityModel>;
-String _$fetchPassengersHash() => r'fb9e1c7e68b2338e1fa9182fb9ba2d6b97e86a12';
+typedef ActivityListRef = AutoDisposeProviderRef<List<ActivityModel>>;
+String _$fetchActivitiesHash() => r'4bcb1af55afed3d72d797f6789b4dce9224ccfac';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -75,6 +57,105 @@ class _SystemHash {
   }
 }
 
+typedef FetchActivitiesRef = AutoDisposeFutureProviderRef<List<ActivityModel>>;
+
+/// See also [fetchActivities].
+@ProviderFor(fetchActivities)
+const fetchActivitiesProvider = FetchActivitiesFamily();
+
+/// See also [fetchActivities].
+class FetchActivitiesFamily extends Family<AsyncValue<List<ActivityModel>>> {
+  /// See also [fetchActivities].
+  const FetchActivitiesFamily();
+
+  /// See also [fetchActivities].
+  FetchActivitiesProvider call(
+    bool isRefreshed,
+  ) {
+    return FetchActivitiesProvider(
+      isRefreshed,
+    );
+  }
+
+  @override
+  FetchActivitiesProvider getProviderOverride(
+    covariant FetchActivitiesProvider provider,
+  ) {
+    return call(
+      provider.isRefreshed,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchActivitiesProvider';
+}
+
+/// See also [fetchActivities].
+class FetchActivitiesProvider
+    extends AutoDisposeFutureProvider<List<ActivityModel>> {
+  /// See also [fetchActivities].
+  FetchActivitiesProvider(
+    this.isRefreshed,
+  ) : super.internal(
+          (ref) => fetchActivities(
+            ref,
+            isRefreshed,
+          ),
+          from: fetchActivitiesProvider,
+          name: r'fetchActivitiesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchActivitiesHash,
+          dependencies: FetchActivitiesFamily._dependencies,
+          allTransitiveDependencies:
+              FetchActivitiesFamily._allTransitiveDependencies,
+        );
+
+  final bool isRefreshed;
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchActivitiesProvider && other.isRefreshed == isRefreshed;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, isRefreshed.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+String _$fetchActivities2Hash() => r'7471277fb90767b9992c28ac31151fc80bf17946';
+
+/// See also [fetchActivities2].
+@ProviderFor(fetchActivities2)
+final fetchActivities2Provider =
+    AutoDisposeFutureProvider<ActivityModel>.internal(
+  fetchActivities2,
+  name: r'fetchActivities2Provider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fetchActivities2Hash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FetchActivities2Ref = AutoDisposeFutureProviderRef<ActivityModel>;
+String _$fetchPassengersHash() => r'e70de5e8ddbd75c8a770e10762e0a18cd7ee798e';
 typedef FetchPassengersRef = AutoDisposeFutureProviderRef<List<Passenger>>;
 
 /// See also [fetchPassengers].

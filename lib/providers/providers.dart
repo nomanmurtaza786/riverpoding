@@ -13,14 +13,22 @@ ApiServices apiServices(ApiServicesRef ref) {
 }
 
 @riverpod
-Future<ActivityModel> fetchActivities(FetchActivitiesRef ref) async {
-  final activity = await ref.watch(apiServicesProvider).getActivity();
-//timer to refresh the data
-//   Timer(const Duration(seconds: 3), () {
-//     ref.invalidateSelf();
-//   });
+List<ActivityModel> activityList(ActivityListRef ref) {
+  return [];
+}
 
-  return activity;
+@riverpod
+Future<List<ActivityModel>> fetchActivities(
+    FetchActivitiesRef ref, bool isRefreshed) async {
+  ref.onDispose(() {});
+
+  final activities = ref.watch(activityListProvider);
+  final activity = await ref.watch(apiServicesProvider).getActivity();
+  if (isRefreshed) {
+    activities.clear();
+  }
+  activities.add(activity);
+  return activities;
 }
 
 @riverpod
@@ -41,8 +49,9 @@ Future<List<Passenger>> fetchPassengers(FetchPassengersRef ref,
     return [];
   }
   final data = await ref.watch(apiServicesProvider).getPassengers(page: page);
-  final Totalpages = data.totalPages;
+  //final Totalpages = data.totalPages;
   final passengers = data.data ?? [];
+  ref.keepAlive();
 
   return [...passengers];
 }
