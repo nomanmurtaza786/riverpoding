@@ -15,9 +15,6 @@ class ActivityScreen extends StatelessWidget {
         body: Column(
           children: [
             ActivityWidget(
-              providerName: fetchActivitiesProvider,
-            ),
-            ActivityWidget(
               providerName: fetchActivities2Provider,
             ),
           ],
