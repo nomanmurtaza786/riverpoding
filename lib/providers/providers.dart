@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:superwizor/models/activity_model.dart';
-import 'package:superwizor/models/passengers_model.dart';
 import 'package:superwizor/services/api_services.dart';
 
 part 'providers.g.dart';
@@ -48,28 +47,11 @@ Future<ActivityModel> fetchActivities2(FetchActivities2Ref ref) async {
   return activity;
 }
 
-@riverpod
-Future<List<Passenger>> fetchPassengers(FetchPassengersRef ref,
-    {int page = 0}) async {
-  if (page > 10) {
-    return [];
-  }
-  final data = await ref.watch(apiServicesProvider).getPassengers(page: page);
-  //final Totalpages = data.totalPages;
-  final passengers = data.data ?? [];
-  //timer to refresh the data
-  ref.cacheFor(const Duration(minutes: 5));
-
-  return [...passengers];
-}
-
 extension on AutoDisposeRef {
   // When invoked keeps your provider alive for [duration]
   void cacheFor(Duration duration) {
     final link = keepAlive();
-    final timer = Timer(duration, () => link.close());
-    onDispose(() {
-      timer.cancel();
-    });
+    final timer = Timer(duration, link.close);
+    onDispose(timer.cancel);
   }
 }
