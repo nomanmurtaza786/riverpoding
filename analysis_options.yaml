@@ -9,6 +9,24 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  plugins:
+    - custom_lint
+  exclude:
+    - lib/**/*.g.dart
+    - lib/**/*.gen.dart
+    - lib/assets.dart
+    - lib/**/platform/adobe/*
+    - lib/generated/**/*.dart
+    - lib/generated/*.dart
+    - test/**/*.mocks.dart
+    - packages/**/test/*
+    - packages/tab_ui_widgets/lib/generated/**/*.dart
+    - packages/tab_feature_flagging/**/*.dart
+    - lib/localization/generated/**/*.dart
+    - lib/localization/generated/*.dart
+    - test/coverage_helper_test.dart
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
@@ -23,7 +41,36 @@ linter:
   # producing the lint.
   rules:
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    always_declare_return_types: true
+    always_use_package_imports: true
+    always_put_control_body_on_new_line: true
+    avoid_catches_without_on_clauses: true
+    avoid_positional_boolean_parameters: true
+    avoid_redundant_argument_values: true
+    avoid_renaming_method_parameters: true
+    avoid_returning_null_for_future: true
+    avoid_void_async: true
+    camel_case_extensions: true
+    curly_braces_in_flow_control_structures: true
+    directives_ordering: true
+    empty_statements : true
+    exhaustive_cases: true
+    join_return_with_assignment: true
+    prefer_generic_function_type_aliases: true
+    prefer_final_locals: true
+    prefer_is_empty: true
+    prefer_single_quotes: true
+    prefer_spread_collections: true
+    provide_deprecation_message: true
+    sized_box_for_whitespace: true
+    unawaited_futures: true
+    unnecessary_lambdas: true
+    unnecessary_new: true
+    depend_on_referenced_packages: false
+    prefer_interpolation_to_compose_strings: false
+    no_leading_underscores_for_local_identifiers: false
+    sort_child_properties_last: false
+    library_private_types_in_public_api: false
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

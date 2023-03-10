@@ -28,14 +28,12 @@ class ActivityWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print('noman --->');
     return Container(
       width: 200,
       height: 200,
       //border: Border.all(color: Colors.black),
       decoration: myBoxDecoration(),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ref.watch(providerName).when(
