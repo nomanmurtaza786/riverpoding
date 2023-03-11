@@ -6,7 +6,7 @@ part of 'passengers_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fetchPassengersHash() => r'19b95f75be01580326da12b7e4ece5c3bdbd90f5';
+String _$fetchPassengersHash() => r'75320c54e2bcc8aabfb30a53e41eb702dc53a287';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-typedef FetchPassengersRef = FutureProviderRef<List<Passenger>>;
+typedef FetchPassengersRef = AutoDisposeFutureProviderRef<List<Passenger>>;
 
 /// See also [fetchPassengers].
 @ProviderFor(fetchPassengers)
@@ -74,7 +74,8 @@ class FetchPassengersFamily extends Family<AsyncValue<List<Passenger>>> {
 }
 
 /// See also [fetchPassengers].
-class FetchPassengersProvider extends FutureProvider<List<Passenger>> {
+class FetchPassengersProvider
+    extends AutoDisposeFutureProvider<List<Passenger>> {
   /// See also [fetchPassengers].
   FetchPassengersProvider({
     this.page = 0,
@@ -110,7 +111,7 @@ class FetchPassengersProvider extends FutureProvider<List<Passenger>> {
   }
 }
 
-String _$passengersApiHash() => r'470f90207e67b797b0de2755ddf0f56fecbf4e32';
+String _$passengersApiHash() => r'10fc2bedcbf8a8368ef8b4a3dae07438a331c3d8';
 
 /// See also [PassengersApi].
 @ProviderFor(PassengersApi)

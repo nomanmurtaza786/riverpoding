@@ -15,7 +15,7 @@ class PassengersApi extends _$PassengersApi {
   }
 
   //load more
-  Future<void> buildMore() async {
+  Future<void> loadMore() async {
     state = const AsyncLoading();
     final data = await ref.watch(apiServicesProvider).getPassengers(page: 1);
     final passengers = data.data ?? [];
@@ -24,7 +24,7 @@ class PassengersApi extends _$PassengersApi {
   }
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Future<List<Passenger>> fetchPassengers(FetchPassengersRef ref,
     {int page = 0}) async {
   if (page > 10) {
@@ -37,5 +37,5 @@ Future<List<Passenger>> fetchPassengers(FetchPassengersRef ref,
 
   //ref.cacheFor(const Duration(minutes: 5));
 
-  return [...passengers];
+  return passengers;
 }

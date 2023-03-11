@@ -27,7 +27,15 @@ final dioClient = Provider((ref) => Dio(
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 30),
       ),
-    ));
+    )..interceptors.add(
+        LogInterceptor(
+          responseBody: true,
+          requestBody: true,
+          requestHeader: false,
+          responseHeader: false,
+        ),
+        
+      ));
 
 @riverpod
 Future<List<ActivityModel>> fetchActivities(
@@ -50,7 +58,9 @@ Future<ActivityModel> fetchActivities2(FetchActivities2Ref ref) async {
 //   Timer(const Duration(seconds: 3), () {
 //     ref.invalidateSelf();
 //   });
-  ref.onDispose(() {});
+  ref.onDispose(() {
+    print('disposed from fetchActivities');
+  });
 
   return activity;
 }
