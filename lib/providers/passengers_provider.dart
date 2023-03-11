@@ -24,7 +24,7 @@ class PassengersApi extends _$PassengersApi {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<Passenger>> fetchPassengers(FetchPassengersRef ref,
     {int page = 0}) async {
   if (page > 10) {
