@@ -139,7 +139,7 @@ class FetchActivitiesProvider
   }
 }
 
-String _$fetchActivities2Hash() => r'7c00d96ab5c2a7b34fd5336bd0e48c6cc5826a37';
+String _$fetchActivities2Hash() => r'8fe1376f13f3d121f3fbdefe93f561ff6f7d6dd2';
 
 /// See also [fetchActivities2].
 @ProviderFor(fetchActivities2)

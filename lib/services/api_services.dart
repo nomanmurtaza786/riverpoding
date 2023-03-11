@@ -1,6 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:superwizor/models/activity_model.dart';
 import 'package:superwizor/models/passengers_model.dart';
@@ -9,13 +10,18 @@ class ApiServices {
   static const url = 'http://www.boredapi.com/api/activity/';
   static const url2 = 'https://api.instantwebtools.net/v1/passenger?';
 
-  var client = http.Client();
+  final client = http.Client();
+  final Dio dio;
+  ApiServices({
+    required this.dio,
+  });
+
   Future<ActivityModel> getActivity() async {
     try {
-      final response = await client.get(Uri.parse(url));
+      final response = await dio.get(url);
       if (response.statusCode == 200) {
-        final Map<String, dynamic> json = jsonDecode(response.body);
-        return ActivityModel.fromJson(json);
+        // final Map<String, dynamic> json = jsonDecode(response.data);
+        return ActivityModel.fromJson(response.data);
       } else {
         throw Exception('Failed to load activity');
       }
@@ -26,14 +32,12 @@ class ApiServices {
 
   Future<PassengersModel> getPassengers({int page = 0}) async {
     try {
-      final response = await client.get(
-        Uri.parse(
-          '${url2}page=$page&size=10',
-        ),
+      final response = await dio.get(
+        '${url2}page=$page&size=10',
       );
       if (response.statusCode == 200) {
-        final Map<String, dynamic> json = jsonDecode(response.body);
-        return PassengersModel.fromJson(json);
+        // final Map<String, dynamic> json = jsonDecode(response.body);
+        return PassengersModel.fromJson(response.data);
       } else {
         throw Exception('Failed to load activity');
       }
