@@ -17,6 +17,9 @@ class ActivityScreen extends StatelessWidget {
             ActivityWidget(
               providerName: fetchActivities2Provider,
             ),
+            ActivityWidget(
+              providerName: fetchActivities2Provider,
+            ),
           ],
         ));
   }
@@ -37,6 +40,8 @@ class ActivityWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ref.watch(providerName).when(
+                skipLoadingOnRefresh: false,
+                skipLoadingOnReload: true,
                 data: (data) => Center(child: Text(data.activity ?? '')),
                 error: (error, stack) => Center(child: Text(error.toString())),
                 loading: () => const Center(

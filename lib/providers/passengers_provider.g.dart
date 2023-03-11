@@ -6,7 +6,7 @@ part of 'passengers_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fetchPassengersHash() => r'75320c54e2bcc8aabfb30a53e41eb702dc53a287';
+String _$fetchPassengersHash() => r'dac1355966dc7100d20ecb414d2322eea8929aff';
 
 /// Copied from Dart SDK
 class _SystemHash {

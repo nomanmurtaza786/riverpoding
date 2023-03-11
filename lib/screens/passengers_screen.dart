@@ -38,9 +38,12 @@ class PassengersScreen extends ConsumerWidget {
                   subtitle: Text('${passenger.trips} trips'),
                 );
               },
-              loading: () => const ListTile(
-                title: Text('Loading...'),
-              ),
+              loading: () {
+                if (itemIndex != 0) {
+                  return null;
+                }
+                return const Center(child: CircularProgressIndicator());
+              },
               error: (error, stack) => ListTile(
                 title: Text(error.toString()),
               ),

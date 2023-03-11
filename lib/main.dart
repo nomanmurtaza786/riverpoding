@@ -22,7 +22,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: router,
       debugShowCheckedModeBanner: false,
-      title: 'Superwizer',
+      title: 'RiverPoding',
       theme: SuperwizorTheme.lightTheme(context),
     );
   }

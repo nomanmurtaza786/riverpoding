@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:superwizor/models/passengers_model.dart';
 import 'package:superwizor/providers/providers.dart';
@@ -35,7 +38,16 @@ Future<List<Passenger>> fetchPassengers(FetchPassengersRef ref,
   final passengers = data.data ?? [];
   //timer to refresh the data
 
-  //ref.cacheFor(const Duration(minutes: 5));
+  ref.cacheFor(const Duration(minutes: 1));
 
   return passengers;
+}
+
+extension on AutoDisposeRef {
+  // When invoked keeps your provider alive for [duration]
+  void cacheFor(Duration duration) {
+    final link = keepAlive();
+    final timer = Timer(duration, link.close);
+    onDispose(timer.cancel);
+  }
 }
