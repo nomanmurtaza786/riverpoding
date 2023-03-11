@@ -1,5 +1,5 @@
 class RouterConstants {
-  static String home = '/';
-  static String passengers = '/passengers';
-  static String activity = '/activities';
+  static const String home = '/';
+  static const String passengers = '/passengers';
+  static const String activity = '/activities';
 }

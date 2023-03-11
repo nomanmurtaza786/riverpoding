@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:superwizor/interceptors/auth_interceptor.dart';
 import 'package:superwizor/models/activity_model.dart';
 import 'package:superwizor/services/api_services.dart';
 
@@ -22,20 +23,27 @@ List<ActivityModel> activityList(ActivityListRef ref) {
 }
 
 //dio provider
-final dioClient = Provider((ref) => Dio(
-      BaseOptions(
-        connectTimeout: const Duration(seconds: 10),
-        receiveTimeout: const Duration(seconds: 30),
+final dioClient = Provider(
+  (ref) => Dio(
+    BaseOptions(
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 30),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    ),
+  )
+    ..interceptors.add(
+      AuthInterceptor('1234'),
+    )
+    ..interceptors.add(
+      LogInterceptor(
+        responseBody: true,
+        responseHeader: false,
       ),
-    )..interceptors.add(
-        LogInterceptor(
-          responseBody: true,
-          requestBody: true,
-          requestHeader: false,
-          responseHeader: false,
-        ),
-        
-      ));
+    ),
+);
 
 @riverpod
 Future<List<ActivityModel>> fetchActivities(

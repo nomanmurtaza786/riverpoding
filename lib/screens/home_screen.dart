@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
         ),
         body: Center(
           child: Column(
-            children: [
+            children: const [
               HomeContent(
                 title: 'Activity Screen',
                 buttonText: 'Activity Screen',
