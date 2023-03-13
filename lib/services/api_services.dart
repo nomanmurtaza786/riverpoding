@@ -3,8 +3,20 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:superwizor/models/activity_model.dart';
 import 'package:superwizor/models/passengers_model.dart';
+import 'package:superwizor/providers/providers.dart';
+
+part 'api_services.g.dart';
+
+@Riverpod(
+  keepAlive: true,
+)
+ApiServices apiServices(ApiServicesRef ref) {
+  final dio = ref.watch(dioClient);
+  return ApiServices(dio: dio);
+}
 
 class ApiServices {
   static const url = 'http://www.boredapi.com/api/activity/';

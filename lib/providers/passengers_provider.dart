@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:superwizor/models/passengers_model.dart';
-import 'package:superwizor/providers/providers.dart';
+import 'package:superwizor/services/api_services.dart';
 
 part 'passengers_provider.g.dart';
 

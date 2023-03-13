@@ -64,3 +64,5 @@ packages/tab_feature_flagging/example/ios/Flutter/flutter_export_environment.sh
 packages/tab_feature_flagging/example/ios/Flutter/Generated.xcconfig
 packages/tab_feature_flagging/example/ios/Runner/GeneratedPluginRegistrant.h
 packages/tab_feature_flagging/example/ios/Runner/GeneratedPluginRegistrant.m
+.flutter-plugins-dependencies
+.flutter-plugins

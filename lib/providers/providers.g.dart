@@ -6,20 +6,6 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$apiServicesHash() => r'1cf63affc4bcd1bf9afff350085b8f1f33613ebe';
-
-/// See also [apiServices].
-@ProviderFor(apiServices)
-final apiServicesProvider = Provider<ApiServices>.internal(
-  apiServices,
-  name: r'apiServicesProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$apiServicesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef ApiServicesRef = ProviderRef<ApiServices>;
 String _$activityListHash() => r'b65de92f6a72b20cbc891518a497fc0a6db17961';
 
 /// See also [activityList].

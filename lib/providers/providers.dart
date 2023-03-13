@@ -10,13 +10,6 @@ import 'package:superwizor/services/api_services.dart';
 
 part 'providers.g.dart';
 
-@Riverpod(
-  keepAlive: true,
-)
-ApiServices apiServices(ApiServicesRef ref) {
-  final dio = ref.watch(dioClient);
-  return ApiServices(dio: dio);
-}
 
 @riverpod
 List<ActivityModel> activityList(ActivityListRef ref) {

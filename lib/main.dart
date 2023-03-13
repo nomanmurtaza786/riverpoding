@@ -7,8 +7,8 @@ import 'package:superwizor/providers/router_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await LocalStorage.instance.init();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
