@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:superwizor/interceptors/auth_interceptor.dart';
 import 'package:superwizor/models/activity_model.dart';
@@ -24,37 +25,33 @@ List<ActivityModel> activityList(ActivityListRef ref) {
 
 //dio provider
 final dioClient = Provider(
-  (ref) => Dio(
-    BaseOptions(
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 30),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    ),
-  )
-    ..interceptors.add(
-      AuthInterceptor('1234'),
-    )
-    ..interceptors.add(
-      LogInterceptor(
-        responseBody: true,
-        responseHeader: false,
+  (ref) {
+    return Dio(
+      BaseOptions(
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 30),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
       ),
-    ),
+    )
+      ..interceptors.add(
+        AuthInterceptor(),
+      )
+      ..interceptors.add(
+        PrettyDioLogger(requestBody: true, requestHeader: true),
+      );
+  },
 );
 
 @riverpod
-Future<List<ActivityModel>> fetchActivities(
-    FetchActivitiesRef ref, bool isRefreshed) async {
+Future<List<ActivityModel>> fetchActivities(FetchActivitiesRef ref) async {
   ref.onDispose(() {});
 
   final activities = ref.watch(activityListProvider);
   final activity = await ref.watch(apiServicesProvider).getActivity();
-  if (isRefreshed) {
-    activities.clear();
-  }
+
   activities.add(activity);
   return activities;
 }

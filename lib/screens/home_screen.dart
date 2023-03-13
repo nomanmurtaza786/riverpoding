@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:superwizor/constants/router_constatns.dart';
+import 'package:superwizor/local_persistence/local_storage.dart';
+import 'package:superwizor/local_persistence/local_storage_keys.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,7 +35,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class HomeContent extends StatelessWidget {
+class HomeContent extends ConsumerWidget {
   final String title;
   final String buttonText;
   final String page;
@@ -45,7 +48,7 @@ class HomeContent extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -54,12 +57,9 @@ class HomeContent extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         OutlinedButton(
-          onPressed: () {
-            //navigate to activity screen using material page route
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => page),
-            // );
+          onPressed: () async {
+            final token = await LocalStorage.instance
+                .setString(key: LocalStorageKeys.authToken, value: 'Token');
             context.push(page);
           },
           style: OutlinedButton.styleFrom(

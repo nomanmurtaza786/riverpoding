@@ -34,111 +34,22 @@ final activityListProvider = AutoDisposeProvider<List<ActivityModel>>.internal(
 );
 
 typedef ActivityListRef = AutoDisposeProviderRef<List<ActivityModel>>;
-String _$fetchActivitiesHash() => r'4bcb1af55afed3d72d797f6789b4dce9224ccfac';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-typedef FetchActivitiesRef = AutoDisposeFutureProviderRef<List<ActivityModel>>;
+String _$fetchActivitiesHash() => r'48d911eee7a3ccfa5b5cb70ee0f8a17632d52f2a';
 
 /// See also [fetchActivities].
 @ProviderFor(fetchActivities)
-const fetchActivitiesProvider = FetchActivitiesFamily();
+final fetchActivitiesProvider =
+    AutoDisposeFutureProvider<List<ActivityModel>>.internal(
+  fetchActivities,
+  name: r'fetchActivitiesProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fetchActivitiesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-/// See also [fetchActivities].
-class FetchActivitiesFamily extends Family<AsyncValue<List<ActivityModel>>> {
-  /// See also [fetchActivities].
-  const FetchActivitiesFamily();
-
-  /// See also [fetchActivities].
-  FetchActivitiesProvider call(
-    bool isRefreshed,
-  ) {
-    return FetchActivitiesProvider(
-      isRefreshed,
-    );
-  }
-
-  @override
-  FetchActivitiesProvider getProviderOverride(
-    covariant FetchActivitiesProvider provider,
-  ) {
-    return call(
-      provider.isRefreshed,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'fetchActivitiesProvider';
-}
-
-/// See also [fetchActivities].
-class FetchActivitiesProvider
-    extends AutoDisposeFutureProvider<List<ActivityModel>> {
-  /// See also [fetchActivities].
-  FetchActivitiesProvider(
-    this.isRefreshed,
-  ) : super.internal(
-          (ref) => fetchActivities(
-            ref,
-            isRefreshed,
-          ),
-          from: fetchActivitiesProvider,
-          name: r'fetchActivitiesProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$fetchActivitiesHash,
-          dependencies: FetchActivitiesFamily._dependencies,
-          allTransitiveDependencies:
-              FetchActivitiesFamily._allTransitiveDependencies,
-        );
-
-  final bool isRefreshed;
-
-  @override
-  bool operator ==(Object other) {
-    return other is FetchActivitiesProvider && other.isRefreshed == isRefreshed;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, isRefreshed.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
+typedef FetchActivitiesRef = AutoDisposeFutureProviderRef<List<ActivityModel>>;
 String _$fetchActivities2Hash() => r'e568e331a3eef8efe900302651e582450fcb6b98';
 
 /// See also [fetchActivities2].
