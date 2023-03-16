@@ -20,7 +20,7 @@ ApiServices apiServices(ApiServicesRef ref) {
 
 class ApiServices {
   static const url = 'http://www.boredapi.com/api/activity/';
-  static const url2 = 'https://api.instantwebtools.net/v1/passenger?';
+  static const url2 = 'https://api.instantwebtools.net/v2/passenger?';
 
   final client = http.Client();
   final Dio dio;

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:superwizor/constants/router_constatns.dart';
-import 'package:superwizor/features/authentication/auth_manager.dart';
 import 'package:superwizor/providers/providers.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -58,14 +57,7 @@ class HomeContent extends ConsumerWidget {
         ),
         OutlinedButton(
           onPressed: () async {
-            AuthManager.instance.saveAccessToken('token32323');
             context.push(page);
-            // final respo = await ref.read(dioClient).get(
-            //       'https://api.instantwebtools.net/v2/passenger?page=0&size=10',
-            //     );
-            // //print status code
-            // print(respo.statusCode);
-            await makeRequest(ref);
           },
           style: OutlinedButton.styleFrom(
             textStyle: Theme.of(context).textTheme.titleMedium,

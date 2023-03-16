@@ -29,7 +29,7 @@ final dioClient = Provider(
         PrettyDioLogger(requestBody: true, requestHeader: true),
       );
     _dio.interceptors.add(InterceptorsWrapper(
-      onError: (DioError e, _) async {
+      onError: (DioError e, handler) async {
         if (e.response?.statusCode == 401) {
           print('noman --->' '401 error');
           final options = e.response?.requestOptions;
@@ -37,14 +37,17 @@ final dioClient = Provider(
 
           // handle 401 error
           // for example, you can refresh the token and retry the request
-          await AuthManager.instance.saveAccessToken('interceptortoken');
-          final newToken = await _dio.post('/refreshToken');
+          await AuthManager.instance.saveAccessToken('nimi');
+          //final newToken = await _dio.post('/refreshToken');
           final _accessToken = AuthManager.instance.accessToken;
 
           // _dio.interceptors.responseLock.unlock();
           //options.headers['Authorization'] = 'Bearer $newToken';
           //_dio.options.headers['Authorization'] = 'Bearer 1212323124';
-          await _dio.request(e.requestOptions.path);
+          final response = await _dio.request(
+              'https://api.instantwebtools.net/v1/passenger?page=0&size=10');
+          handler.resolve(response);
+          return;
         }
       },
     ));
