@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:superwizor/constants/router_constatns.dart';
-import 'package:superwizor/local_persistence/local_storage.dart';
-import 'package:superwizor/local_persistence/local_storage_keys.dart';
+import 'package:superwizor/features/authentication/auth_manager.dart';
+import 'package:superwizor/providers/providers.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -58,9 +58,14 @@ class HomeContent extends ConsumerWidget {
         ),
         OutlinedButton(
           onPressed: () async {
-            final token = await LocalStorage.instance
-                .setString(key: LocalStorageKeys.authToken, value: 'Token');
+            AuthManager.instance.saveAccessToken('token32323');
             context.push(page);
+            // final respo = await ref.read(dioClient).get(
+            //       'https://api.instantwebtools.net/v2/passenger?page=0&size=10',
+            //     );
+            // //print status code
+            // print(respo.statusCode);
+            await makeRequest(ref);
           },
           style: OutlinedButton.styleFrom(
             textStyle: Theme.of(context).textTheme.titleMedium,
@@ -71,8 +76,37 @@ class HomeContent extends ConsumerWidget {
             ),
           ),
           child: Text(buttonText),
+        ),
+        OutlinedButton(
+          onPressed: () async {
+            await makeRequest(ref);
+          },
+          style: OutlinedButton.styleFrom(
+            textStyle: Theme.of(context).textTheme.titleMedium,
+            foregroundColor: Theme.of(context).colorScheme.primary,
+            side: BorderSide(color: Theme.of(context).colorScheme.primary),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+          ),
+          child: const Text('Get Token'),
         )
       ],
     );
   }
+}
+
+Future<void> makeRequest(WidgetRef ref) async {
+  const String url =
+      'https://api.instantwebtools.net/v2/passenger?page=0&size=10';
+  const String token = '123fasfasfsaafasfsa';
+
+  final dio = ref.read(dioClient);
+  //dio.options.headers['Authorization'] = 'Bearer $token';
+
+  final response = await dio.get(url);
+
+//print status code
+  print(response.statusMessage);
+  //print(response.body);
 }

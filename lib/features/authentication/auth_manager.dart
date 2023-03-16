@@ -14,11 +14,12 @@ class AuthManager {
 
   //getter to check if user is logged in
   bool get isLoggedIn =>
-      _localStorage.getString(LocalStorageKeys.authToken) != null;
+      _localStorage.getString(LocalStorageKeys.accessToken) != null;
 
   //getter to get user token
-  String get token =>
-      _localStorage.getString(LocalStorageKeys.authToken) ?? 'No Access token';
+  String get accessToken =>
+      _localStorage.getString(LocalStorageKeys.accessToken) ??
+      'No Access token';
 
   //getter to get user refresh token
   String get refreshToken =>
@@ -26,10 +27,16 @@ class AuthManager {
       'No Refresh token';
 
   //setter to set user token
-  set setAccessToken(String token) => _localStorage.setString(
-        key: LocalStorageKeys.authToken,
+  Future<void> saveAccessToken(String token) => _localStorage.setString(
+        key: LocalStorageKeys.accessToken,
         value: token,
       );
+
+  //save access token to local storage fuction
+
+  //remove Access token
+  Future<void> removeAccessToken() async =>
+      await _localStorage.remove(LocalStorageKeys.accessToken);
 
   //setter to set user refresh token
   set setRefreshToken(String token) => _localStorage.setString(

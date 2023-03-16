@@ -8,7 +8,7 @@ class AuthInterceptor extends Interceptor {
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     final token = LocalStorage.instance
-        .getString(LocalStorageKeys.authToken, defaultValue: 'DefaultToken');
+        .getString(LocalStorageKeys.accessToken, defaultValue: 'DefaultToken');
     options.headers['Authorization'] = token;
     return super.onRequest(options, handler);
   }

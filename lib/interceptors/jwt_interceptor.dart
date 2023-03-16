@@ -4,14 +4,6 @@ import 'package:superwizor/local_persistence/local_storage.dart';
 import 'package:superwizor/local_persistence/local_storage_keys.dart';
 
 class JwtInterceptor extends Interceptor {
-  static JwtInterceptor? _instance;
-  // Avoid self instance
-  JwtInterceptor._();
-  static JwtInterceptor get instance {
-    _instance ??= JwtInterceptor._();
-    return _instance!;
-  }
-
   final Dio _dio = Dio();
   final LocalStorage _localStorage = LocalStorage.instance;
   final AuthManager _authManager = AuthManager.instance;
@@ -19,9 +11,10 @@ class JwtInterceptor extends Interceptor {
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
+      print('noman --->' '401 error2');
       final options = err.response!.requestOptions;
       //remove auth token
-      await _localStorage.remove(LocalStorageKeys.authToken);
+      await _localStorage.remove(LocalStorageKeys.accessToken);
 
       final refreshToken = _authManager.refreshToken;
       final response = await _dio.post(

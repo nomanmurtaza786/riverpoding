@@ -1,4 +1,5 @@
 class LocalStorageKeys {
-  static const String authToken = 'accessToken';
+  static const String accessToken = 'accessToken';
   static const refreshToken = 'refreshToken';
+  
 }
