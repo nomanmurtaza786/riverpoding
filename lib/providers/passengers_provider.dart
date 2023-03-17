@@ -38,7 +38,7 @@ Future<List<Passenger>> fetchPassengers(FetchPassengersRef ref,
   final passengers = data.data ?? [];
   //timer to refresh the data
 
-  ref.cacheFor(const Duration(minutes: 1));
+  //ref.cacheFor(const Duration(minutes: 1));
 
   return passengers;
 }

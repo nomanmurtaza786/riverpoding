@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:superwizor/constants/router_constatns.dart';
+import 'package:superwizor/features/authentication/auth_manager.dart';
 import 'package:superwizor/providers/providers.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -55,35 +56,44 @@ class HomeContent extends ConsumerWidget {
           title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        OutlinedButton(
-          onPressed: () async {
-            context.push(page);
+        RpOutlineButton(
+            onPress: () {
+              context.push(page);
+            },
+            buttonText: buttonText),
+        RpOutlineButton(
+          onPress: () {
+            AuthManager.instance.saveAccessToken('123');
           },
-          style: OutlinedButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.titleMedium,
-            foregroundColor: Theme.of(context).colorScheme.primary,
-            side: BorderSide(color: Theme.of(context).colorScheme.primary),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-          ),
-          child: Text(buttonText),
-        ),
-        OutlinedButton(
-          onPressed: () async {
-            await makeRequest(ref);
-          },
-          style: OutlinedButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.titleMedium,
-            foregroundColor: Theme.of(context).colorScheme.primary,
-            side: BorderSide(color: Theme.of(context).colorScheme.primary),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-          ),
-          child: const Text('Get Token'),
+          buttonText: 'Change Token',
         )
       ],
+    );
+  }
+}
+
+class RpOutlineButton extends StatelessWidget {
+  const RpOutlineButton({
+    Key? key,
+    required this.onPress,
+    required this.buttonText,
+  }) : super(key: key);
+  final VoidCallback onPress;
+  final String buttonText;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: onPress,
+      style: OutlinedButton.styleFrom(
+        textStyle: Theme.of(context).textTheme.titleMedium,
+        foregroundColor: Theme.of(context).colorScheme.primary,
+        side: BorderSide(color: Theme.of(context).colorScheme.primary),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+      ),
+      child: Text(buttonText),
     );
   }
 }
