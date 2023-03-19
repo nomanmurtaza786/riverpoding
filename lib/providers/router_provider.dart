@@ -8,9 +8,12 @@ import 'package:superwizor/screens/home_screen.dart';
 import 'package:superwizor/screens/passengers_screen.dart';
 import 'package:superwizor/screens/products_screen.dart';
 
+//navigatorKey: navigatorKey,
+final navigatorkey = GlobalKey<NavigatorState>();
 final routerProvider = Provider<GoRouter>((ref) {
   final router = RouterNotifier(ref);
   return GoRouter(
+    navigatorKey: navigatorkey,
     initialLocation: RouterConstants.home,
     debugLogDiagnostics: true,
     refreshListenable: router,
@@ -38,6 +41,7 @@ class RouterNotifier extends ChangeNotifier {
   List<GoRoute> get routes => [
         //login
         GoRoute(
+            name: 'login',
             path: RouterConstants.login,
             builder: (context, state) {
               return const LoginScreen();
