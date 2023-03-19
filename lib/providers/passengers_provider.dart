@@ -34,7 +34,7 @@ Future<List<Passenger>> fetchPassengers(FetchPassengersRef ref,
     return [];
   }
   final data = await ref.watch(apiServicesProvider).getPassengers(page: page);
-  //final Totalpages = data.totalPages;
+  //final Totalpages = data.totalPages
   final passengers = data.data ?? [];
   //timer to refresh the data
 

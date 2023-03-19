@@ -20,20 +20,6 @@ final activityListProvider = AutoDisposeProvider<List<ActivityModel>>.internal(
 );
 
 typedef ActivityListRef = AutoDisposeProviderRef<List<ActivityModel>>;
-String _$dioAuthHash() => r'2eff2c41a7b8303c2343cb85d713121ca7e187b7';
-
-/// See also [dioAuth].
-@ProviderFor(dioAuth)
-final dioAuthProvider = AutoDisposeProvider<Dio>.internal(
-  dioAuth,
-  name: r'dioAuthProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$dioAuthHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef DioAuthRef = AutoDisposeProviderRef<Dio>;
 String _$fetchActivitiesHash() => r'48d911eee7a3ccfa5b5cb70ee0f8a17632d52f2a';
 
 /// See also [fetchActivities].

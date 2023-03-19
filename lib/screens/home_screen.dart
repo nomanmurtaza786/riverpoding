@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:superwizor/constants/router_constatns.dart';
-import 'package:superwizor/features/authentication/auth_manager.dart';
-import 'package:superwizor/providers/providers.dart';
+import 'package:superwizor/services/api_services.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -24,6 +24,10 @@ class HomeScreen extends StatelessWidget {
                 buttonText: 'Activity Screen',
                 page: RouterConstants.activity,
               ),
+              HomeContent(
+                  title: 'Products',
+                  buttonText: 'Products Screen',
+                  page: RouterConstants.products),
               HomeContent(
                 title: 'Passenger Screen',
                 buttonText: 'Passenger Screen',
@@ -62,8 +66,8 @@ class HomeContent extends ConsumerWidget {
             },
             buttonText: buttonText),
         RpOutlineButton(
-          onPress: () {
-            AuthManager.instance.saveAccessToken('123');
+          onPress: () async {
+            await ref.read(apiServicesProvider).getLogin();
           },
           buttonText: 'Change Token',
         )
@@ -96,19 +100,4 @@ class RpOutlineButton extends StatelessWidget {
       child: Text(buttonText),
     );
   }
-}
-
-Future<void> makeRequest(WidgetRef ref) async {
-  const String url =
-      'https://api.instantwebtools.net/v2/passenger?page=0&size=10';
-  const String token = '123fasfasfsaafasfsa';
-
-  final dio = ref.read(dioClient);
-  //dio.options.headers['Authorization'] = 'Bearer $token';
-
-  final response = await dio.get(url);
-
-//print status code
-  print(response.statusMessage);
-  //print(response.body);
 }

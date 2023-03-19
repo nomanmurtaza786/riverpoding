@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:superwizor/features/authentication/auth_manager.dart';
-import 'package:superwizor/interceptors/auth_interceptor.dart';
 import 'package:superwizor/models/activity_model.dart';
 import 'package:superwizor/services/api_services.dart';
 
@@ -21,46 +20,54 @@ final dioClient = Provider(
   (ref) {
     final _dio = Dio()
       ..interceptors.add(
-        AuthInterceptor(),
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            //auth token
+            final _accessToken = AuthManager.instance.accessToken;
+            options.headers['Authorization'] = 'Bearer ' + _accessToken;
+            return handler.next(options);
+          },
+          onError: (DioError e, handler) async {
+            if (e.response?.statusCode == 401) {
+              print('noman --->' '401 error3');
+              final path = e.response?.requestOptions.path ?? '';
+              print('noman --->' + path);
+
+              // handle 401 error
+              // for example, you can refresh the token and retry the request
+
+              //final newToken = await _dio.post('/refreshToken');
+              final response = await Dio().post(
+                'https://dummyjson.com/auth/login',
+                data: {
+                  'username': 'kminchelle',
+                  'password': '0lelplR',
+                  'expiresInMins': 1
+                },
+              );
+
+              if (response.statusCode == 200) {
+                final newToken = response.data['token'];
+                await AuthManager.instance.saveAccessToken(newToken);
+
+                final opts = Options(headers: {
+                  'Authorization': 'Bearer ' + newToken,
+                });
+                final _response = await Dio().request(path, options: opts);
+                handler.resolve(_response);
+                return;
+              }
+            }
+          },
+        ),
       )
       ..interceptors.add(
         PrettyDioLogger(requestBody: true, requestHeader: true),
       );
-    _dio.interceptors.add(InterceptorsWrapper(
-      onError: (DioError e, handler) async {
-        if (e.response?.statusCode == 401) {
-          final options = e.response?.requestOptions.headers;
-
-          // handle 401 error
-          // for example, you can refresh the token and retry the request
-          await AuthManager.instance.saveAccessToken('yoyo');
-
-          //final newToken = await _dio.post('/refreshToken');
-          final _accessToken = AuthManager.instance.accessToken;
-          final opts = Options(headers: {
-            'Authorization': 'Bearer ' + _accessToken,
-          });
-
-          final response = await _dio.request(
-              'https://api.instantwebtools.net/v1/passenger?page=0&size=10',
-              options: opts);
-          handler.resolve(response);
-          ref.read(dioAuthProvider);
-          return;
-        }
-      },
-    ));
 
     return _dio;
   },
 );
-
-@riverpod
-Dio dioAuth(DioAuthRef ref) {
-  print('noman --->' 'dio auth provide');
-  //ref.invalidate(dioClient);
-  return Dio();
-}
 
 @riverpod
 Future<List<ActivityModel>> fetchActivities(FetchActivitiesRef ref) async {
