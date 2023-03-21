@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:superwizor/constants/router_constatns.dart';
 import 'package:superwizor/features/authentication/auth_manager.dart';
 import 'package:superwizor/models/activity_model.dart';
+import 'package:superwizor/models/chat_model.dart';
 import 'package:superwizor/providers/router_provider.dart';
 import 'package:superwizor/services/api_services.dart';
 import 'package:web_socket_channel/io.dart';
@@ -112,12 +114,28 @@ Stream<List<String>> chatStream(ChatStreamRef ref) async* {
       'transport': ['websocket'],
       'autoconnect': false,
     },
-  );
+  )..sink.add('test');
 //ref resume
   ref.onCancel(() {
     print('canel from chatStream');
   });
   ref.onDispose(socket.sink.close);
+
+//event contain message string
+
+  //filter the data
+  await for (final event
+      in socket.stream.where((event) => event.toString().contains('message'))) {
+        
+    final Map<String, dynamic> data = jsonDecode(event);
+    final ChatModel chatMessage = ChatModel.fromJson(data);
+    print('noman ---> chat message ' + chatMessage.message!);
+
+    activities.add(
+      chatMessage.message ?? '',
+    );
+    ref.state = AsyncData(activities);
+  }
 
   socket.stream.listen(
     (event) async {
