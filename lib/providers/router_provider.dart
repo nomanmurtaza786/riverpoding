@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:superwizor/constants/router_constatns.dart';
 import 'package:superwizor/screens/Login_screen.dart';
 import 'package:superwizor/screens/activity_screen.dart';
+import 'package:superwizor/screens/chat_screen.dart';
 import 'package:superwizor/screens/home_screen.dart';
 import 'package:superwizor/screens/passengers_screen.dart';
 import 'package:superwizor/screens/products_screen.dart';
@@ -63,5 +64,11 @@ class RouterNotifier extends ChangeNotifier {
           path: RouterConstants.products,
           builder: (context, state) => const ProductsScreen(),
         ),
+        //chat screen
+        GoRoute(
+            path: RouterConstants.chat,
+            builder: (context, state) {
+              return const ChatScreen();
+            }),
       ];
 }

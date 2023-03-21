@@ -52,4 +52,18 @@ final fetchActivities2Provider =
 );
 
 typedef FetchActivities2Ref = AutoDisposeFutureProviderRef<ActivityModel>;
+String _$chatStreamHash() => r'86fc3bc4c8fe8f8e3f4956276b3627df7257fcdb';
+
+/// See also [chatStream].
+@ProviderFor(chatStream)
+final chatStreamProvider = AutoDisposeStreamProvider<List<String>>.internal(
+  chatStream,
+  name: r'chatStreamProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$chatStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef ChatStreamRef = AutoDisposeStreamProviderRef<List<String>>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

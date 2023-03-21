@@ -4,4 +4,5 @@ class RouterConstants {
   static const String activity = '/activities';
   static const String login = '/login';
   static const String products = '/products';
+  static const String chat = '/chat';
 }

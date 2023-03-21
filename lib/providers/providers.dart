@@ -10,6 +10,7 @@ import 'package:superwizor/features/authentication/auth_manager.dart';
 import 'package:superwizor/models/activity_model.dart';
 import 'package:superwizor/providers/router_provider.dart';
 import 'package:superwizor/services/api_services.dart';
+import 'package:web_socket_channel/io.dart';
 
 part 'providers.g.dart';
 
@@ -97,6 +98,36 @@ Future<ActivityModel> fetchActivities2(FetchActivities2Ref ref) async {
   });
 
   return activity;
+}
+
+//riverpod stream provider
+@riverpod
+Stream<List<String>> chatStream(ChatStreamRef ref) async* {
+  final activities = <String>[];
+  //web socket connection
+
+  final socket = IOWebSocketChannel.connect(
+    'wss://demo.piesocket.com/v3/channel_123?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV&notify_self',
+    headers: {
+      'transport': ['websocket'],
+      'autoconnect': false,
+    },
+  );
+//ref resume
+  ref.onCancel(() {
+    print('canel from chatStream');
+  });
+  ref.onDispose(socket.sink.close);
+
+  socket.stream.listen(
+    (event) async {
+      print('noman --->' '$event');
+      activities.add(
+        event.toString(),
+      );
+      ref.state = AsyncData(activities);
+    },
+  );
 }
 
 extension on AutoDisposeRef {

@@ -20,6 +20,11 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: const [
               HomeContent(
+                title: 'Chat Screen',
+                buttonText: 'Chat Screen',
+                page: RouterConstants.chat,
+              ),
+              HomeContent(
                 title: 'Activity Screen',
                 buttonText: 'Activity Screen',
                 page: RouterConstants.activity,
