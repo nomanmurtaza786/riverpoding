@@ -9,7 +9,7 @@ class ChatScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //chat stream
     final chatStream = ref.watch(chatStreamProvider);
-    final chatIsLoading = ref.watch(chatStreamProvider).isLoading;
+    final chatIsLoading = chatStream.isLoading;
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
