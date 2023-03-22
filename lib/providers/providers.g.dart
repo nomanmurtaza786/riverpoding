@@ -52,7 +52,7 @@ final fetchActivities2Provider =
 );
 
 typedef FetchActivities2Ref = AutoDisposeFutureProviderRef<ActivityModel>;
-String _$chatStreamHash() => r'7bbc7a640d5521dd3fed5c94bd2ca8655a3f0b30';
+String _$chatStreamHash() => r'5ce322e872e8ad8090428d55ea329490d4951d6f';
 
 /// See also [chatStream].
 @ProviderFor(chatStream)

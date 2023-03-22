@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 
-
-abstract class SuperwizorColor{
-
-   static const Color primaryColor = Color.fromRGBO(87, 91, 244, 1.0);
-   static const Color onPrimaryColor = Color.fromRGBO(87, 91, 244, 1);
+abstract class SuperwizorColor {
+  static const Color primaryColor = Color.fromRGBO(87, 91, 244, 1.0);
+  static const Color primaryColorDark = Color.fromRGBO(87, 91, 244, 1.0);
+  static const Color onPrimaryColor = Color.fromRGBO(87, 91, 244, 1);
 
   static const Color backgroundColor = Color(0xFFF1E6FF);
   static const Color onBackgroundColor = Color(0xFFF1F4FA);
 
+  static const Color tertiaryColor = Color(0xFFD3D3D3);
 
-   static const Color tertiaryColor = Color(0xFFD3D3D3);
+  static const Color errorColor = Color(0xffB00020);
 
-
-   static const Color errorColor = Color(0xffB00020);
-
-   static const Color whiteTextColor = Color(0xFFFFFFFF);
-   static const Color blackTextColor = Color(0xFF000000);
+  static const Color whiteTextColor = Color(0xFFFFFFFF);
+  static const Color blackTextColor = Color(0xFF000000);
 
   //
   // static const Color kTextColorGrey = Color(0xFF667592);

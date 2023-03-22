@@ -11,8 +11,8 @@ import 'package:superwizor/features/authentication/auth_manager.dart';
 import 'package:superwizor/models/activity_model.dart';
 import 'package:superwizor/models/chat_model.dart';
 import 'package:superwizor/providers/router_provider.dart';
+import 'package:superwizor/providers/socket_provider.dart';
 import 'package:superwizor/services/api_services.dart';
-import 'package:web_socket_channel/io.dart';
 
 part 'providers.g.dart';
 
@@ -41,7 +41,7 @@ final dioClient = Provider(
               try {
                 //refreshing token
                 final response = await Dio().post(
-                  'https://dummyjson.com/auth/loginnew',
+                  'https://dummyjson.com/auth/login',
                   data: {
                     'username': 'kminchelle',
                     'password': '0lelplR',
@@ -70,7 +70,10 @@ final dioClient = Provider(
         ),
       )
       ..interceptors.add(
-        PrettyDioLogger(requestBody: true, requestHeader: true),
+        PrettyDioLogger(
+          requestBody: true,
+          requestHeader: true,
+        ),
       );
 
     return _dio;
@@ -106,46 +109,31 @@ Future<ActivityModel> fetchActivities2(FetchActivities2Ref ref) async {
 @riverpod
 Stream<List<String>> chatStream(ChatStreamRef ref) async* {
   final activities = <String>[];
-  //web socket connection
 
-  final socket = IOWebSocketChannel.connect(
-    'wss://demo.piesocket.com/v3/channel_123?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV&notify_self',
-    headers: {
-      'transport': ['websocket'],
-      'autoconnect': false,
-    },
-  )..sink.add('test');
-//ref resume
-  ref.onCancel(() {
-    print('canel from chatStream');
-  });
-  ref.onDispose(socket.sink.close);
+  final socket = ref.watch(socketClientProvider)..sink.add('connected');
 
-//event contain message string
-
-  //filter the data
-  await for (final event
-      in socket.stream.where((event) => event.toString().contains('message'))) {
-        
-    final Map<String, dynamic> data = jsonDecode(event);
-    final ChatModel chatMessage = ChatModel.fromJson(data);
-    print('noman ---> chat message ' + chatMessage.message!);
-
-    activities.add(
-      chatMessage.message ?? '',
-    );
-    ref.state = AsyncData(activities);
-  }
-
-  socket.stream.listen(
-    (event) async {
-      print('noman --->' '$event');
-      activities.add(
-        event.toString(),
-      );
-      ref.state = AsyncData(activities);
+  ref.onCancel(
+    () {
+      socket.sink.close();
+      print('canel from chatStream');
     },
   );
+  ref.onDispose(() {
+    socket.sink.close();
+    print('disposed from chatStream');
+  });
+
+  //filter the data
+  await for (final event in socket.stream) {
+    if (event.toString().contains('message')) {
+      final Map<String, dynamic> data = jsonDecode(event);
+      final ChatModel chatMessage = ChatModel.fromJson(data);
+      activities.add(
+        chatMessage.message ?? '',
+      );
+    }
+    yield activities;
+  }
 }
 
 extension on AutoDisposeRef {
