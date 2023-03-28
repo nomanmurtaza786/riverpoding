@@ -1,0 +1,6 @@
+{
+  "@@locale": "ar",
+  "helloWorld": "مرحبا بالعالم",
+  "home": "بيت",
+  "greeting": "{username} مرحبًا"
+}

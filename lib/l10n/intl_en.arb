@@ -1,0 +1,17 @@
+{
+  "@@locale": "en",
+  "helloWorld": "Hello World",
+  "@helloWorld": {
+    "description": "A programmer greeting"
+  },
+  "home": "Home",
+  "greeting": "Hello {username}",
+  "@greeting": {
+    "description": "A Welcome message",
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  }
+}

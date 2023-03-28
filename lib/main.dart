@@ -1,8 +1,12 @@
+import 'dart:ui' as local;
+
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:superwizor/core/theme/theme.dart';
+import 'package:superwizor/generated/l10n.dart';
 import 'package:superwizor/local_persistence/local_storage.dart';
 import 'package:superwizor/providers/router_provider.dart';
 
@@ -19,6 +23,8 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
+// GlobalWidgetsLocalizations supports left-right language supports
+// instead of [S.delegate.supportedLocales] [L10n.all] can be used
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -30,6 +36,13 @@ class MyApp extends ConsumerWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp.router(
+      supportedLocales: S.delegate.supportedLocales,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'RiverPoding',
