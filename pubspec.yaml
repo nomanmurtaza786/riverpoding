@@ -20,6 +20,7 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
+  flutter: 3.7.3
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,6 +31,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  #flutter_localizations and intl need for localization
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -55,6 +61,7 @@ dependencies:
   web_socket_channel: ^2.3.0
   socket_io_client: ^2.0.1
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -69,6 +76,7 @@ dev_dependencies:
   riverpod_generator: ^2.0.0
   json_serializable: ^6.6.1
   custom_lint: ^0.3.2
+  arb_utils: ^0.5.0
 
 #  flutter_launcher_icons: ^0.11.0
 
@@ -94,7 +102,8 @@ flutter_native_splash:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  # [generate] is set to true to automatically generate the strings and other resources
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

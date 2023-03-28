@@ -1,0 +1,6 @@
+{
+  "@@locale": "hi",
+  "helloWorld": "हैलो वर्ल्ड",
+  "home": "घर",
+  "greeting": "नमस्ते {username}"
+}

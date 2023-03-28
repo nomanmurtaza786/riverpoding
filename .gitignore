@@ -66,3 +66,6 @@ packages/tab_feature_flagging/example/ios/Runner/GeneratedPluginRegistrant.h
 packages/tab_feature_flagging/example/ios/Runner/GeneratedPluginRegistrant.m
 .flutter-plugins-dependencies
 .flutter-plugins
+pubspec.lock
+.flutter-plugins
+.flutter-plugins-dependencies

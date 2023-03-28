@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:superwizor/constants/router_constatns.dart';
+import 'package:superwizor/generated/l10n.dart';
 import 'package:superwizor/services/api_services.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
-          title: const Text('Home'),
+          title: Text(S.current.home),
         ),
         body: Center(
           child: Column(
