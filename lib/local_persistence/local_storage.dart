@@ -22,6 +22,8 @@ class LocalStorage {
   /// is not provided, it will return `false`
   bool getBool(String key, {bool defaultValue = false}) =>
       _sharedPreferences.getBool(key) ?? defaultValue;
+  bool getBoolean(String key, {bool defaultValue = false}) =>
+      _sharedPreferences.getBool(key) ?? defaultValue;
 
   // Get the stored int for `key`. If not found, the `defaultValue` will be returned.
   // If `defaultValue` is not provided, it will return `0`
