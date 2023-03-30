@@ -27,6 +27,7 @@ final dioClient = Provider(
     final _dio = Dio()
       ..interceptors.add(
         InterceptorsWrapper(
+            //new line here
           onRequest: (options, handler) {
             //auth token
             final _accessToken = AuthManager.instance.accessToken;
